@@ -23,5 +23,6 @@ jobs:
 
     - name: Build
       run: make
-
+    - name: show
+      run: ls -al
 
