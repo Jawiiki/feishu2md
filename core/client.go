@@ -154,14 +154,14 @@ func (c *Client) GetWikiNodeList(ctx context.Context, spaceID string, parentNode
 	if err != nil {
 		return nil, err
 	}
-
+	flag := resp.HasMore
 	nodes := resp.Items
 
-	for resp.HasMore {
+	for flag {
 		resp, _, err := c.larkClient.Drive.GetWikiNodeList(ctx, &lark.GetWikiNodeListReq{
 			SpaceID:         spaceID,
 			PageSize:        nil,
-			PageToken:       nil,
+			PageToken:       &resp.PageToken,
 			ParentNodeToken: parentNodeToken,
 		})
 
@@ -170,6 +170,7 @@ func (c *Client) GetWikiNodeList(ctx context.Context, spaceID string, parentNode
 		}
 
 		nodes = append(nodes, resp.Items...)
+		flag = resp.HasMore
 	}
 
 	return nodes, nil
