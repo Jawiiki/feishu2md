@@ -27,7 +27,7 @@ jobs:
       run: ls -al
 
     - name: Upload the binary
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
-        name: feishu2md-artifact  # 上传构件的名称
-        path: ./feishu2md   
+        name: feishu2md-artifact
+        path: ./feishu2md
